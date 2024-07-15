@@ -21,9 +21,7 @@ def main_work():
     files = [os.path.join(folder, f) for f in os.listdir(folder) if f.endswith(('.png', '.jpg', '.jpeg'))]
     images = [Image.open(file) for file in files]
 
-    # Определяем размер коллажа (здесь мы делаем сетку размером n x n)
-    margin = 50  # отступ между изображениями
-    # дополнительный отступ по краям
+    margin = 50
     if len(images) % 4 == 0:
         n = 4
         m = len(images) / n
@@ -38,16 +36,13 @@ def main_work():
     collage_width = width * n + margin * (n - 1) + border * 2
     collage_height = height * m + margin * (m - 1) + border * 2
 
-    # Создаем новое изображение для коллажа с белым фоном
     collage = Image.new('RGB', (collage_width, collage_height), "white")
 
-    # Размещаем изображения в коллаже
     x, y = border, border
     for i, img in enumerate(images):
-        # Вычисляем позицию с учетом отступов
         collage.paste(img, (x, y))
         x += width + margin
-        if (i + 1) % n == 0:  # Переход на новую строку
+        if (i + 1) % n == 0:
             x = border
             y += height + margin
     
@@ -59,19 +54,13 @@ def main_work():
         subprocess.run(['open', filename])
 
 def create_collage():
-
-    # Диалог выбора папки
     root = tk.Tk()
     root.title("Тестовое приложение")
-    
-    # Настройка размера окна
     root.geometry('400x300')
     
-    # Добавление фонового текста
     label = Label(root, text="Тестовое задание в компанию MYCEGO. \nИсполнитель: Нуртдинов Айнур", font=('Helvetica', 16), fg='blue')
     label.pack(expand=True)
     
-    # Добавление кнопок
     btn_choose_directory = Button(root, text="Выбрать папку", command=main_work)
     btn_choose_directory.pack(side=tk.BOTTOM, pady=10)
     root.mainloop()
