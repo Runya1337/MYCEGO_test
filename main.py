@@ -1,15 +1,13 @@
 from PIL import Image
 import os
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, Label, Button
 import sys
+import subprocess
 
-def create_collage():
 
-    # Диалог выбора папки
-    root = tk.Tk()
-    root.withdraw()  # Убираем главное окно Tkinter
-    folder = filedialog.askdirectory()  # Диалог выбора директории
+def main_work():
+    folder = filedialog.askdirectory()
 
     if not folder:
         return
@@ -55,6 +53,28 @@ def create_collage():
     
     collage.save(filename, format='TIFF')
     print("Коллаж сохранен как", filename)
+    if sys.platform == "win32":
+        os.startfile(filename)
+    else:
+        subprocess.run(['open', filename])
+
+def create_collage():
+
+    # Диалог выбора папки
+    root = tk.Tk()
+    root.title("Тестовое приложение")
+    
+    # Настройка размера окна
+    root.geometry('400x300')
+    
+    # Добавление фонового текста
+    label = Label(root, text="Тестовое задание в компанию MYCEGO. \nИсполнитель: Нуртдинов Айнур", font=('Helvetica', 16), fg='blue')
+    label.pack(expand=True)
+    
+    # Добавление кнопок
+    btn_choose_directory = Button(root, text="Выбрать папку", command=main_work)
+    btn_choose_directory.pack(side=tk.BOTTOM, pady=10)
+    root.mainloop()
 
 if __name__ == "__main__":
     create_collage()

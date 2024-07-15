@@ -10,7 +10,7 @@ if %errorlevel% neq 0 (
 
 echo Установка необходимых библиотек...
 python -m pip install -r requirements.txt
-
+pip3 install tkinter
 echo Запуск скрипта...
 python main.py
 
