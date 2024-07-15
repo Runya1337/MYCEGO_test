@@ -1,18 +1,18 @@
 @echo off
-echo Проверка наличия Python...
+echo Checking for Python...
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Python не установлен.
-    echo Пожалуйста, установите Python с официального сайта: https://www.python.org/
+    echo Python is not installed.
+    echo Please install Python from the official website: https://www.python.org/
     pause
     exit
 )
 
-echo Установка необходимых библиотек...
+echo Installing required libraries...
 python -m pip install -r requirements.txt
 pip3 install tkinter
-echo Запуск скрипта...
+echo Running the script...
 python main.py
 
-echo Скрипт выполнен успешно.
+echo Script executed successfully.
 pause
